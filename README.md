@@ -1,5 +1,7 @@
 # Chapter 11: Can LLMs Actually Do Causal Reasoning?
-### INFO 7390 — Causal Inference with LLMs
+
+**Course:** INFO 7390 — Causal Inference with LLMs | **Take-Home Midterm**  
+**Author:** Nilay Raut
 
 ---
 

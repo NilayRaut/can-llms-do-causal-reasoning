@@ -1,5 +1,8 @@
 # Chapter 11: Can LLMs Actually Do Causal Reasoning?
 
+**Course:** INFO 7390 — Causal Inference with LLMs  
+**Author:** Nilay Raut
+
 > **Core Claim:** LLMs exhibit superficial causal reasoning that breaks down under adversarial counterfactuals — they are useful as reasoning *assistants*, not causal *engines*.
 
 ---

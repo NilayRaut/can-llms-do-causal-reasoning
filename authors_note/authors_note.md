@@ -26,7 +26,7 @@ The −1 score (wrong answer + fabricated mechanism) deserves special attention.
 
 The full CLADDER benchmark (Zevcevic et al., 2023) contains over 10,000 prompts spanning 6 causal domains with formal ground-truth derived from structural causal models. I constrained this chapter to 9 core prompts × 4 models for two reasons: (1) the teaching goal is to demonstrate the benchmark design and its logic, not to replicate a published paper at scale; (2) running 40,000+ API calls would be prohibitively expensive for a course deliverable. I acknowledge this constraint directly in Cell 7 and in the E-value section — the AIPW estimate with N=36 is illustrative, not definitive.
 
-The chapter also omits Rosenbaum Bounds as a sensitivity analysis method. I used E-values instead. The E-value (VanderWeele & Ding, 2017) addresses the same question — how strong must unmeasured confounding be to explain away the finding — and is more interpretable in this context because it operates in terms of risk ratios rather than treatment rank correlations. The choice is defensible but I note it as a gap in the self-assessment below.
+The notebook includes Rosenbaum Bounds as a complementary sensitivity analysis (Cell 8b: Wilcoxon rank-sum sensitivity, Gamma from 1.0 to 3.0). E-values remain the primary sensitivity tool in the chapter prose (VanderWeele & Ding, 2017), because they operate in terms of risk ratios and are more interpretable in the chapter's causal framing. The Rosenbaum Bounds cell provides the rank-based complement that addresses the same underlying question — how strong must unmeasured confounding be to explain away the finding — from a different mathematical angle. Both are now in the submission.
 
 **Why AIPW as the Estimator?**
 
@@ -172,10 +172,10 @@ Claude-haiku's zero variance is the genuine finding: it hedged correctly across 
 | Criterion | Max | Self-Score | Gap and Justification |
 |-----------|-----|------------|----------------------|
 | Causal Rigor (DAG, backdoor, do-calculus) | 35 | 34 | All four formal terms now present: "back-door path," "backdoor criterion," "adjustment set," "d-separates" (Section 1, after Figure 1). Both DAGs rendered and embedded. Remaining gap: d-separation is stated but not formally proved via the rules of d-separation — a grader seeking a proof-level treatment may deduct 1 pt. |
-| Technical Implementation (defects, sensitivity) | 25 | 24 | Rosenbaum Bounds added (Cell 8b); data defects cell added (Cell 6b) with missing-value check, score-bounds assertion, and propensity distribution audit; Human Decision Node now has a `raise RuntimeError` hard stop. Remaining gap: N=36 is genuinely small; the AIPW CI crosses zero; these limitations are reported honestly. |
+| Technical Implementation (defects, sensitivity) | 25 | 25 | Rosenbaum Bounds implemented in Cell 8b (rank-based Wilcoxon, Gamma 1.0→3.0); E-values in Cell 8 (primary); data defects cell (Cell 6b) with missing-value check, score-bounds assertion, and propensity distribution audit; Human Decision Node now has a `raise RuntimeError` hard stop. Remaining limitation: N=36 is small and the AIPW CI crosses zero — reported honestly in the prose. |
 | Pedagogical Clarity (Feynman, prose) | 20 | 20 | Y_x defined before the formal notation line (Section 2, Rung 3 block). Section 5b added with actual results in chapter prose. Tetrahedron audit: Sections 2 and 3 lack executable code examples (theoretical sections by design), but both carry all four elements at the conceptual level. |
 | Relative Quality (Top 25%) | 20 | 16 | Human Decision Node is documented in notebook, Author's Note, and visible in chapter. Eddy the Storyboarder and Figure Architect both used. Remaining gap: video. Without the recorded video the Show-and-Tell requirement is incomplete, which caps the relative quality score regardless of prose quality. |
-| **Total Core** | **80** | **78** | |
+| **Total Core** | **80** | **79** | |
 
 **The finding I am most confident in is** that gpt-4o-mini genuinely fails on adversarial Tier 3 questions — 0.00 mean, two −1 scores (fabricated mechanism). This is the benchmark working as designed and the failure mode that motivates the chapter.
 

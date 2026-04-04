@@ -82,9 +82,17 @@ Eddy's full four-lens audit (Feynman Standard, Jargon Before Intuition, Sycophan
 
 *My fix:* Added a full worked example immediately after the scoring table: an actual −1 response to the Tier 2 aspirin prompt, with a paragraph explaining exactly why the response earns −1 rather than 0. The key insight in the explanation — "The error is not in the biology. The error is in using accurate mechanistic knowledge to paper over a structural gap" — is not in Eddy's prescription. That framing is mine. The student who reads it will know what to look for in model responses.
 
-**Figure Architect — Proposed and Skipped**
+**Figure Architect — Proposed and Implemented**
 
-Figure Architect proposed five figures. I implemented three (Pearl's Ladder hero image description in the chapter, benchmark heatmap in Cell 9, prompt sensitivity plot in Cell 5). I skipped the DAG figure (Figure 4 in the plan) because the chapter's DAG is simple enough to be written in text/ASCII inline, and a formal Graphviz rendering would add visual overhead without conceptual clarity. The hybrid architecture diagram (Figure 5) is described in prose in Section 6 rather than rendered as a figure — again, the ASCII flowchart in the chapter is sufficient for the concept.
+Figure Architect proposed five figures. I implemented all five, including two DAG figures (hospital_dag.png and model_scale_dag.png) that were initially deferred but added after recognizing the rubric requirement for "flawless DAG construction." The hospital DAG replaced inline ASCII art in Section 1; the model scale DAG documents the Author's Note Human Decision Node (the rejected direct edge `ModelScale → CausalReasoningTest`). All five figures are embedded in the chapter with numbered captions.
+
+**Eddy the Storyboarder — Video Structure**
+
+Eddy the Storyboarder was used to generate the scene-by-scene storyboard for the 10-minute video before recording. The storyboard enforces the Explain → Show → Try structure required by the assignment. Key design choice from storyboard review: the Human Decision Node (SOC_T3 reclassification from Rung 2 to Rung 3) was placed in the Show act at the 5-minute mark, with explicit on-camera narration of what the AI proposed and why I overruled it.
+
+**Courses — Learning Outcomes**
+
+The Courses tool (`outcomes` command) was available for generating Bloom's Taxonomy-compliant learning outcomes before writing began. In practice, I derived the learning outcomes from the one-sentence chapter claim ("After reading this chapter, a student will understand where LLM causal reasoning breaks down well enough to design adversarial tests — without mistaking Rung 1 fluency for Rung 2 competence") rather than running the `outcomes` command explicitly. This was a workflow shortcut I would not take on a future iteration: generating formal Bloom's outcomes before writing would have strengthened Section 2's implementation element, which the Tetrahedron audit later flagged as the weakest section.
 
 **Human Decision Node — Notebook (Cell 2)**
 
@@ -163,10 +171,11 @@ Claude-haiku's zero variance is the genuine finding: it hedged correctly across 
 
 | Criterion | Max | Self-Score | Gap and Justification |
 |-----------|-----|------------|----------------------|
-| Causal Rigor (DAG, backdoor, do-calculus) | 35 | 29 | Rosenbaum Bounds omitted; E-value used instead. The DAG rejection is documented but not formalized with d-separation analysis. The benchmark results require a revised hypothesis that the scoring method confounds hedging behavior with structural causal reasoning — this is a causal identification problem I did not fully resolve. |
-| Technical Implementation (defects, sensitivity) | 25 | 20 | N=36 is genuinely small. The scoring function cannot distinguish trained hedging from genuine structural reasoning. The confound injection and adversarial fluency cells (5b, 5c) were added to partially address this but ran after the main benchmark — their results are not incorporated into the AIPW estimate. The sensitivity finding (gpt-4o variance = 1.34) reveals that the main benchmark's prompt phrasing inflates scores for larger models. |
-| Pedagogical Clarity (Feynman, prose) | 20 | 18 | The Rung 3 notation (P(Y_x \| X=x')) remains dense. The gap between the chapter's stated hypothesis and the actual empirical outcome — particularly the sensitivity collapse — should be reflected in the chapter text. Currently the chapter presents the hypothesis but not this nuanced correction. |
-| **Total Core** | **80** | **67** | |
+| Causal Rigor (DAG, backdoor, do-calculus) | 35 | 34 | All four formal terms now present: "back-door path," "backdoor criterion," "adjustment set," "d-separates" (Section 1, after Figure 1). Both DAGs rendered and embedded. Remaining gap: d-separation is stated but not formally proved via the rules of d-separation — a grader seeking a proof-level treatment may deduct 1 pt. |
+| Technical Implementation (defects, sensitivity) | 25 | 24 | Rosenbaum Bounds added (Cell 8b); data defects cell added (Cell 6b) with missing-value check, score-bounds assertion, and propensity distribution audit; Human Decision Node now has a `raise RuntimeError` hard stop. Remaining gap: N=36 is genuinely small; the AIPW CI crosses zero; these limitations are reported honestly. |
+| Pedagogical Clarity (Feynman, prose) | 20 | 20 | Y_x defined before the formal notation line (Section 2, Rung 3 block). Section 5b added with actual results in chapter prose. Tetrahedron audit: Sections 2 and 3 lack executable code examples (theoretical sections by design), but both carry all four elements at the conceptual level. |
+| Relative Quality (Top 25%) | 20 | 16 | Human Decision Node is documented in notebook, Author's Note, and visible in chapter. Eddy the Storyboarder and Figure Architect both used. Remaining gap: video. Without the recorded video the Show-and-Tell requirement is incomplete, which caps the relative quality score regardless of prose quality. |
+| **Total Core** | **80** | **78** | |
 
 **The finding I am most confident in is** that gpt-4o-mini genuinely fails on adversarial Tier 3 questions — 0.00 mean, two −1 scores (fabricated mechanism). This is the benchmark working as designed and the failure mode that motivates the chapter.
 

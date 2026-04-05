@@ -1,7 +1,1 @@
-Video recording link (YouTube/Vimeo unlisted):
-[ADD LINK HERE AFTER RECORDING]
-
-Video structure (10 minutes):
-  Act 1 — Explain (2-3 min): Pearl's Ladder, hospital scenario, draw DAG on camera
-  Act 2 — Show (5-6 min): Notebook walkthrough, Human Decision Node, AIPW result, E-value, heatmap
-  Act 3 — Try (2-3 min): Schools/books exercise, break-the-model live, open question
+Video recording link (YouTube/Vimeo unlisted): https://youtu.be/2K1ankpVlzs

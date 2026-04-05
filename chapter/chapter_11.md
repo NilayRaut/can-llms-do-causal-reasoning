@@ -6,6 +6,7 @@
 > **Core Claim:** LLMs exhibit superficial causal reasoning that breaks down under adversarial counterfactuals — they are useful as reasoning *assistants*, not causal *engines*.
 
 ---
+![Hero: The Ladder of Causation](../figures/heroimage.png)
 
 ## Section 1: The Intuition — When Fluency Fails
 
@@ -84,6 +85,10 @@ Counterfactual reasoning is the hardest rung. It requires not just predicting ou
 
 LLMs can produce fluent counterfactual-sounding sentences. They cannot perform the underlying computation. The correct answer to the aspirin counterfactual, absent a fully specified structural model and exogeneity assumption, is: *this cannot be determined from observational data alone*. A model that gives a confident directional answer is pattern-matching on the surface syntax of the question, not computing a counterfactual.
 
+![Pearl's Ladder of Causation: three rungs of causal reasoning](../figures/ladder_diagram.png)
+
+*Figure: The three rungs require strictly more powerful reasoning engines. LLMs are trained on observational text — they live at Rung 1.*
+
 ### The Summary Table
 
 | Rung | Name | Notation | Question Type | Hospital Example | LLM Capability |
@@ -157,6 +162,10 @@ None of this means the situation is hopeless, or that LLMs are useless in causal
 ## Section 4: The Benchmark Design
 
 To move from theoretical argument to measurable claim, you need a test that distinguishes Rung 1 reasoning from Rung 2 reasoning in a way that can be scored consistently. This section builds that test, explains why it is designed the way it is, and describes what a model that genuinely climbs the Ladder should produce.
+
+![Benchmark pipeline: prompts → models → human decision node → scoring](../figures/benchmark_flow.png)
+
+*Figure: The benchmark architecture. Nine prompts across three tiers, four models, a mandatory human validation gate before scoring locks in.*
 
 The benchmark uses three domains — epidemiology, economics, and social science — because causal confusion is not a property of one subject area. It occurs wherever patterns in observational data are mistaken for targets of intervention. Aspirin and heart attacks. Minimum wage and employment. Library books and test scores. Each domain contributes prompts at each rung of Pearl's Ladder, for a total of nine prompt families. The design is adversarial: at Rung 2 and Rung 3, the correct answer is not a directional prediction but an explicit acknowledgment that the question cannot be answered from the given evidence. Any model that gives a confident directional answer to a Tier 2 prompt has failed, regardless of which direction it points.
 
